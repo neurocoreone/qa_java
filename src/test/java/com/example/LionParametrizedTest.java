@@ -1,0 +1,34 @@
+package com.example;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+import static org.junit.Assert.assertEquals;
+
+@RunWith(Parameterized.class)
+public class LionParametrizedTest {
+
+    private final String checkingValue;
+    private final boolean expectedValue;
+
+    public LionParametrizedTest(String checkingValue, boolean expectedValue) {
+        this.checkingValue = checkingValue;
+        this.expectedValue = expectedValue;
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] getTestData() {
+        return new Object[][]{
+                {"Самец", true},
+                {"Самка", false},
+        };
+    }
+
+    @Test
+    public void doesHaveManeTest() throws Exception {
+        Lion lion = new Lion(checkingValue, new Feline());
+        boolean actual = lion.doesHaveMane();
+        assertEquals(expectedValue, actual);
+    }
+}
